@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EZNEW.Mvc.CustomModelDisplayName
 {
@@ -16,20 +17,6 @@ namespace EZNEW.Mvc.CustomModelDisplayName
             {
                 context.DisplayMetadata.DisplayName = () => customDisplay.DisplayName;
             }
-        }
-
-        /// <summary>
-        /// register CustomDisplayMetadataProvider
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        public static void Register(IServiceProvider serviceProvider)
-        {
-            if (serviceProvider == null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-            IOptions<MvcOptions> mvcOptions = serviceProvider.GetService(typeof(IOptions<MvcOptions>)) as IOptions<MvcOptions>;
-            mvcOptions.Value.ModelMetadataDetailsProviders.Add(new MvcCustomModelDisplayProvider());
         }
     }
 }
